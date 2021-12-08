@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using UnityEditor;
 #endif
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MenuHandler : MonoBehaviour
 {
-
+    [SerializeField] InputField inputPlayerName;
 
     public void StartGame()
-    {
+    {        
         SceneManager.LoadScene(1);
     }
 
@@ -28,4 +29,13 @@ public class MenuHandler : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
+    public void ReadField()
+    {
+        if (DataPlayer.instance != null)
+        {
+            DataPlayer.instance.playerName = inputPlayerName.text;
+        }
+    }
+
 }
