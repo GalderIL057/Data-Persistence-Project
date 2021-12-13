@@ -14,7 +14,7 @@ public class DataPlayer : MonoBehaviour
     private Text highScoreText;
 
     private void Awake()
-    {        
+    {
         if (instance != null)
         {
             Destroy(gameObject);
@@ -22,19 +22,26 @@ public class DataPlayer : MonoBehaviour
         }
 
         instance = this;
-        DontDestroyOnLoad(gameObject);        
+        DontDestroyOnLoad(gameObject);
     }
 
     public void CalculateHighScore()
     {
+        HighScore highScoreInstance = GameObject.FindGameObjectWithTag("HighScoreText").GetComponent<HighScore>();
+
+        highScoreInstance.LoadData();
+
         highScoreText = GameObject.FindGameObjectWithTag("HighScoreText").GetComponent<Text>();
-        
-        highScoreText.text = "High Score - " + DataPlayer.instance.playerNameHighScore + ": " + DataPlayer.instance.highScore;        
+
+        highScoreText.text = "High Score - " + DataPlayer.instance.playerNameHighScore + ": " + DataPlayer.instance.highScore;
     }
 
     public void CalculateHighScore(int i)
     {
         highScoreText = GameObject.FindGameObjectWithTag("HighScoreText").GetComponent<Text>();
+        HighScore highScoreInstance = GameObject.FindGameObjectWithTag("HighScoreText").GetComponent<HighScore>();
+
+        highScoreInstance.LoadData();
 
         if (i > DataPlayer.instance.highScore)
         {
@@ -44,8 +51,10 @@ public class DataPlayer : MonoBehaviour
         }
         else if (DataPlayer.instance.highScore > i)
         {
-            highScoreText.text = "High Score - " + DataPlayer.instance.playerName + ": " + DataPlayer.instance.highScore;
+            highScoreText.text = "High Score - " + DataPlayer.instance.playerNameHighScore + ": " + DataPlayer.instance.highScore;
         }
-    }
+        
+        highScoreInstance.SaveData();
+    }   
 
 }
